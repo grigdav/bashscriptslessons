@@ -1,0 +1,87 @@
+
+#!/bin/bash
+mydir=/home/dave
+if [ -d $mydir ]
+then
+echo "The $mydir directory exists"
+cd $mydir
+ls
+else
+echo "The $mydir directory does not exist"
+fi
+
+
+for var in first second third                   #'вывод цикла из переменный списка'
+do
+echo "The $var item"
+done
+
+
+for file in /home/dave/*                        #'проверка файлов и директории'
+do
+if [ -d "$file" ]
+then
+echo "$file is a directory"
+elif [ -f "$file" ]
+then
+echo "$file is a file"
+fi
+done
+
+
+for (( a = 1; a <= 3; a++ ))                     #'скрипт со вложенными циклами'
+do
+echo " Старт $a интерации цикла "
+for (( b = 1; b <= 3; b++))
+do 
+echo "Начало $b интерации подцикла "
+done
+done
+
+
+var1=17                                          #'скрипт управление циклами break'
+while [ $var1 -lt 100 ]
+do
+if  [ $var1 -gt 78 ]
+then
+break
+fi
+echo " Позиция синхрофазатрона: $var1 "
+var1=$(($var1 + 5))
+done
+
+
+for (( var1 = 1; var1 < 15; var1++ ))             #'Управление циклами при помощи continue'
+do 
+if [ $var1 -gt 5 ] && [ $var1 -lt 10 ]
+then
+continue
+fi
+echo " Позиция синхрофазатрона: Фаза 2 - $var1"
+done
+
+
+for (( var1 = 15; var1 < 56; var1++ ))            #'Обработак вывода скрипта в файл'
+do
+if [ $var1 -le 40 ] && [ $var1 -lt 49 ]
+then
+continue
+fi
+echo " Позиция поршня равна - $var1 градусам."
+done > Scriptfile.txt
+echo " Конец записи вывода сообщений скрипта в файл. Задача-5"
+
+
+IFS=: 
+echo " Задача-6. Начало сбора информации о процессах"         #"Поиск и запись исполняемых процессов "
+for folder in $PATH
+do
+for file in $folder/*
+do
+if [ -x $file ]
+then
+echo " Исполняемый процесс  - "$file" "
+fi
+done 
+done > proces.txt
+echo " Завершение поиска и копирование - Пожалуйста прверьте папку proces.txt"
