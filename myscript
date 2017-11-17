@@ -51,7 +51,7 @@ var1=$(($var1 + 5))
 done
 
 
-for (( var1 = 1; var1 < 15; var1++ ))             #'Управление циклами при помощи continue'
+for (( var1 = 2; var1 < 15; var1++ ))             #'Управление циклами при помощи continue'
 do 
 if [ $var1 -gt 5 ] && [ $var1 -lt 10 ]
 then
@@ -72,6 +72,7 @@ done > Scriptfile.txt
 echo " Конец записи вывода сообщений скрипта в файл. Задача-5"
 
 
+echo
 IFS=: 
 echo " Задача-6. Начало сбора информации о процессах"         #"Поиск и запись исполняемых процессов "
 for folder in $PATH
@@ -84,4 +85,43 @@ echo " Исполняемый процесс  - "$file" "
 fi
 done 
 done > proces.txt
-echo " Завершение поиска и копирование - Пожалуйста прверьте папку proces.txt"
+echo " Завершение поиска и копирования - Пожалуйста прверьте папку proces.txt"
+
+
+
+
+echo                  #" Обработка ключей со значениями  Пример -  ./myscript -a -b 15 -d "
+while [ -n "$1" ]
+do
+case "$1" in
+-a) echo " Найден первый ключ" ;;
+-b) param="$2"
+echo " Найден второй ключ, со значением $param "
+shift ;;
+-c) echo " Найден третий ключ " ;;
+--) shift
+break ;;
+*) echo " Параметр $1 не является ключом " ;;
+esac
+shift
+done
+count=3
+for param in "$@"
+do 
+echo "Параметр #$count - $param"
+count=$(( @count + 1 ))
+done
+
+
+echo              #"Ввод данных и ограничение их по времени"
+if read -t 7 -p " Эй, ты! Да ты! Введи своё имя: " name
+then
+echo " Whats up nigga - $name"
+else
+echo " Ты опоздал (( "
+fi
+
+
+echo
+echo " Eror script" >&2
+echo " Normal sscript"
